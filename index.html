@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ramin Akbari · Software Engineer</title>
+  <meta name="description" content="Ramin Akbari, Computer Science senior at MSU Denver. Projects in browser extensions, web apps, and computer vision.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-soft: #f6f7f9;
+      --text: #16181d;
+      --muted: #5c6370;
+      --line: #e4e7ec;
+      --accent: #2451b7;
+      --accent-soft: #eaf0fc;
+      --radius: 14px;
+      --max: 1040px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      font-size: 17px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+    /* Nav */
+    nav {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+    nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .logo { font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+    .nav-links { display: flex; gap: 28px; font-size: 15px; }
+    .nav-links a { color: var(--muted); font-weight: 500; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+    /* Hero */
+    .hero { padding: 110px 0 90px; }
+    .eyebrow { font-size: 14px; font-weight: 600; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 16px; }
+    .hero h1 { font-size: clamp(40px, 6vw, 60px); line-height: 1.08; letter-spacing: -0.03em; margin: 0 0 22px; font-weight: 700; }
+    .hero p.lead { font-size: 20px; color: var(--muted); max-width: 640px; margin: 0 0 34px; }
+    .btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 20px; border-radius: 10px; font-weight: 600; font-size: 15px;
+      border: 1px solid var(--line); color: var(--text); background: #fff;
+      transition: border-color .15s, transform .15s;
+    }
+    .btn:hover { border-color: #c4c9d2; text-decoration: none; transform: translateY(-1px); }
+    .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .btn.primary:hover { background: #1d4399; }
+
+    /* Sections */
+    section { padding: 80px 0; }
+    section.soft { background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    h2 { font-size: 32px; letter-spacing: -0.02em; margin: 0 0 8px; }
+    .section-sub { color: var(--muted); margin: 0 0 48px; }
+
+    /* Projects */
+    .project {
+      display: grid; grid-template-columns: 1.15fr 1fr; gap: 44px; align-items: center;
+      padding: 44px 0; border-top: 1px solid var(--line);
+    }
+    .project:first-of-type { border-top: none; padding-top: 0; }
+    .project.flip .media { order: 2; }
+    .project > * { min-width: 0; }
+    .media { position: relative; }
+    .shot {
+      width: 100%; border-radius: var(--radius); border: 1px solid var(--line);
+      box-shadow: 0 10px 30px rgba(16, 24, 40, 0.08); display: block;
+    }
+    .inset {
+      position: absolute; right: -14px; bottom: -22px; width: 26%;
+      border-radius: 10px; border: 3px solid #fff;
+      box-shadow: 0 10px 30px rgba(16, 24, 40, 0.18);
+    }
+    .duo {
+      aspect-ratio: 16 / 11; border-radius: var(--radius);
+      background: linear-gradient(135deg, #1c2230 0%, #0f141d 100%);
+      display: flex; align-items: center; justify-content: center; gap: 5%;
+      padding: 6% 8%; box-shadow: 0 10px 30px rgba(16, 24, 40, 0.12);
+    }
+    .duo img { height: 100%; width: auto; max-width: 44%; object-fit: contain; border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.45); }
+    .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .pair figure { margin: 0; }
+    .pair figcaption { font-size: 13px; color: var(--muted); text-align: center; margin-top: 8px; }
+    .placeholder {
+      aspect-ratio: 16 / 10; border-radius: var(--radius); border: 1px dashed #c9ced8;
+      background: var(--bg-soft); display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 15px;
+    }
+    .project h3 { font-size: 24px; letter-spacing: -0.015em; margin: 0 0 4px; }
+    .meta { font-size: 14px; color: var(--muted); margin: 0 0 14px; }
+    .badge {
+      display: inline-block; font-size: 12px; font-weight: 600; color: #0f6b3a; background: #e6f6ec;
+      padding: 2px 9px; border-radius: 999px; margin-left: 8px; vertical-align: 3px;
+    }
+    .project p { margin: 0 0 14px; }
+    .project ul { margin: 0 0 18px; padding-left: 20px; }
+    .project li { margin-bottom: 6px; }
+    .role { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 6px; }
+    .tags, .project ul.tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; padding: 0; list-style: none; }
+    .tags li { font-size: 13px; font-weight: 500; background: var(--accent-soft); color: var(--accent); padding: 4px 11px; border-radius: 999px; margin: 0; }
+    .links { display: flex; gap: 18px; font-weight: 600; font-size: 15px; }
+
+    /* Code comparison */
+    .code {
+      background: #0f1523; color: #d6deeb; border-radius: var(--radius);
+      font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13.5px; line-height: 1.7;
+      padding: 22px 24px; overflow-x: auto; box-shadow: 0 10px 30px rgba(16, 24, 40, 0.12);
+    }
+    .code .c { color: #7c8aa5; }
+    .code .k { color: #c792ea; }
+    .code .ty { color: #82aaff; }
+    .code .s { color: #c3e88d; }
+    .code hr { border: none; border-top: 1px solid #243049; margin: 14px 0; }
+
+    /* Skills */
+    .skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; }
+    .skill-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
+    .skill-card h4 { margin: 0 0 12px; font-size: 15px; }
+    .skill-card .tags { margin: 0; }
+
+    /* About */
+    .about { display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; }
+    .about p { margin: 0 0 16px; }
+    .edu { border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+    .edu h4 { margin: 0 0 4px; font-size: 17px; }
+    .edu .meta { margin-bottom: 14px; }
+    .edu p { font-size: 15px; color: var(--muted); margin: 0; }
+
+    /* Contact */
+    .contact { text-align: center; }
+    .contact p { color: var(--muted); max-width: 520px; margin: 0 auto 28px; }
+    .contact .btns { justify-content: center; }
+    footer { text-align: center; color: var(--muted); font-size: 14px; padding: 32px 0 40px; }
+
+    @media (max-width: 820px) {
+      .nav-links { gap: 18px; }
+      .nav-links .hide-sm { display: none; }
+      .hero { padding: 72px 0 60px; }
+      .project, .about { grid-template-columns: 1fr; gap: 26px; }
+      .project.flip .media { order: 0; }
+      .inset { right: 8px; bottom: -16px; }
+      .code { font-size: 12px; padding: 18px; }
+      section { padding: 60px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top">Ramin Akbari</a>
+    <div class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="#skills" class="hide-sm">Skills</a>
+      <a href="#about" class="hide-sm">About</a>
+      <a href="Ramin_Akbari_Resume.pdf" target="_blank">Resume</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <p class="eyebrow">Computer Science · MSU Denver</p>
+    <h1>Hi, I'm Ramin.<br>I build practical software.</h1>
+    <p class="lead">I'm a senior studying computer science, graduating in May 2027. I've built a published Firefox extension, a live-data signage web app, and a computer vision pipeline. I'm looking for software engineering internships and new-grad roles.</p>
+    <div class="btns">
+      <a class="btn primary" href="#projects">View projects</a>
+      <a class="btn" href="Ramin_Akbari_Resume.pdf" target="_blank">Resume (PDF)</a>
+      <a class="btn" href="https://github.com/Ramin034" target="_blank">GitHub</a>
+    </div>
+  </div>
+</header>
+
+<section class="soft" id="projects">
+  <div class="wrap">
+    <h2>Projects</h2>
+    <p class="section-sub">A mix of team and solo work, from class projects to published software.</p>
+
+    <!-- Theme Switcher -->
+    <article class="project">
+      <div class="media">
+        <div class="duo">
+          <img src="img/theme-1.jpg" alt="Theme switcher popup with search, sorting, and a theme group">
+          <img src="img/theme-2.jpg" alt="Theme switcher showing Work, Light, and Chill theme groups">
+        </div>
+      </div>
+      <div>
+        <h3>Anonymous Theme Switcher <span class="badge">Published</span></h3>
+        <p class="meta">Firefox extension · Team of 5 · Spring 2026</p>
+        <p>A Firefox extension that organizes your installed browser themes into named groups, with search, sorting, and live previews when you hover over a theme. Switching themes takes one click. It's live on Firefox Add-ons, with 45 Jest unit tests and a GitHub Actions CI pipeline.</p>
+        <p class="role">What I built</p>
+        <ul>
+          <li>Theme detection and grouping with the WebExtensions management API, saved across browser sessions</li>
+          <li>Live hover previews that restore your original theme on mouse-out, with click-to-lock logic</li>
+        </ul>
+        <ul class="tags"><li>JavaScript</li><li>WebExtensions API</li><li>Jest</li><li>GitHub Actions</li></ul>
+        <div class="links">
+          <a href="https://addons.mozilla.org/en-US/firefox/addon/anonymous-theme-switcher/" target="_blank">Firefox Add-ons ↗</a>
+          <a href="https://github.com/Mohamed-47/CS3250-spring26" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Digital Signage -->
+    <article class="project flip">
+      <div class="media">
+        <img class="shot" src="img/signage.png" alt="Digital signage display showing time, weather, news, and crypto charts">
+        <img class="inset" src="img/signage-portrait.png" alt="The same display in portrait layout">
+      </div>
+      <div>
+        <h3>Digital Signage Display</h3>
+        <p class="meta">Web app · Team of 5 · Spring 2026</p>
+        <p>A configurable signage app that turns any screen into a live information board, with rotating news, weather, crypto charts, and artwork pulled from 6+ public APIs. The layout adapts to landscape or portrait screens, and every widget is controlled from one JSON config file.</p>
+        <p class="role">What I built</p>
+        <ul>
+          <li>Fixed CORS errors blocking the news feeds by routing RSS requests through the rss2json API</li>
+          <li>The weather widget: current conditions and a 3-day forecast from the Open-Meteo API</li>
+        </ul>
+        <ul class="tags"><li>JavaScript</li><li>HTML/CSS</li><li>Public APIs</li></ul>
+        <div class="links">
+          <a href="https://github.com/Ramin034/Ramin-digital-signage" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Lane Detection -->
+    <article class="project">
+      <div class="media">
+        <div class="pair">
+          <figure><img class="shot" src="img/lane-1.png" alt="Detected lane markings highlighted in green on a clear road"><figcaption>Clear road</figcaption></figure>
+          <figure><img class="shot" src="img/lane-2.png" alt="Detected lane markings highlighted in green on a road with a cyclist"><figcaption>Road with a cyclist</figcaption></figure>
+        </div>
+      </div>
+      <div>
+        <h3>Lane Detection</h3>
+        <p class="meta">Computer vision · Solo · Spring 2026</p>
+        <p>A classical computer vision pipeline that finds lane markings in real road images from the KITTI autonomous-driving dataset, without machine learning. It uses edge detection, brightness thresholding, masking, and morphology to isolate the lanes, then fits lines with the Hough transform.</p>
+        <ul>
+          <li>Tuned the morphology kernels after larger ones erased the thin lane lines</li>
+          <li>Documented known limitations, such as sidewalks being misdetected as lanes, and how to fix them</li>
+        </ul>
+        <ul class="tags"><li>Python</li><li>OpenCV</li><li>NumPy</li></ul>
+        <div class="links">
+          <a href="https://github.com/Ramin034/Lane-Detection" target="_blank">GitHub ↗</a>
+          <a href="https://colab.research.google.com/github/Ramin034/Lane-Detection/blob/main/LaneDetectionProject.ipynb" target="_blank">Open in Colab ↗</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Car Vending Machine -->
+    <article class="project flip">
+      <div class="media">
+<pre class="code"><span class="c">// Version 1: fixed-size 2D grid</span>
+<span class="k">private</span> <span class="ty">Car</span> tower[][];
+tower[floor][space] = car;
+<hr><span class="c">// Version 2: HashMap keyed by location</span>
+<span class="k">private</span> <span class="ty">Map</span>&lt;<span class="ty">String</span>, <span class="ty">Car</span>&gt; carTower = <span class="k">new</span> <span class="ty">HashMap</span>&lt;&gt;();
+carTower.put(floor + <span class="s">"-"</span> + space, car);
+
+<span class="c">// Two 40-line sorts became one line each</span>
+Sorting(<span class="ty">Comparator</span>.comparing(<span class="ty">Car</span>::getPrice), ...);</pre>
+      </div>
+      <div>
+        <h3>Car Vending Machine</h3>
+        <p class="meta">Java · Solo · Spring 2025</p>
+        <p>A Java inventory system for a multi-floor car vending machine. The repo includes both my original version and a refactor I wrote a month later, so you can see exactly what changed and why.</p>
+        <ul>
+          <li>Replaced a 2D array with a location-keyed HashMap for O(1) lookups, inserts, and removals</li>
+          <li>Replaced duplicated insertion sorts with one Comparator-based sort</li>
+          <li>Added car types with an abstract class hierarchy, plus search, sales, and a FIFO wash queue</li>
+        </ul>
+        <ul class="tags"><li>Java</li><li>OOP</li><li>Data Structures</li></ul>
+        <div class="links">
+          <a href="https://github.com/Ramin034/Car-Vending-Machine" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <h2>Skills</h2>
+    <p class="section-sub">Tools and languages I've used in real projects.</p>
+    <div class="skills">
+      <div class="skill-card">
+        <h4>Languages</h4>
+        <ul class="tags"><li>Java</li><li>C++</li><li>JavaScript</li><li>HTML/CSS</li><li>Python</li><li>Kotlin</li><li>ARM Assembly</li></ul>
+      </div>
+      <div class="skill-card">
+        <h4>Frameworks & Libraries</h4>
+        <ul class="tags"><li>WebExtensions API</li><li>Android SDK</li><li>Jest</li><li>OpenCV</li><li>NumPy</li></ul>
+      </div>
+      <div class="skill-card">
+        <h4>Tools</h4>
+        <ul class="tags"><li>Git/GitHub</li><li>GitHub Actions</li><li>Linux (Ubuntu)</li><li>Bash</li><li>ESLint</li><li>VS Code</li><li>Android Studio</li></ul>
+      </div>
+      <div class="skill-card">
+        <h4>Concepts</h4>
+        <ul class="tags"><li>Data Structures</li><li>OOP</li><li>Socket Programming</li><li>Unit Testing</li><li>CI/CD</li><li>Agile/Scrum</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="soft" id="about">
+  <div class="wrap about">
+    <div>
+      <h2>About me</h2>
+      <p>I'm a computer science student in Denver who likes building things people can actually use, whether that's a browser extension, a live dashboard, or a program that finds lane lines in a road photo.</p>
+      <p>Through team projects I've worked in Agile sprints, set up automated testing and CI, and worked through real problems like browser security rules blocking our news feeds. I'm most comfortable in Java and C++, and I'm always picking up new tools as projects need them.</p>
+    </div>
+    <div class="edu">
+      <h4>Metropolitan State University of Denver</h4>
+      <p class="meta">B.S. Computer Science · Expected May 2027</p>
+      <p>Relevant coursework: Data Structures & Algorithms, Software Development Methods, Networking & Distributed Computing, Mobile App Development, Computer Vision, Computer Organization</p>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <h2>Let's talk</h2>
+    <p>I'm looking for software engineering internships and new-grad roles. The best way to reach me is by email.</p>
+    <div class="btns">
+      <a class="btn primary" href="mailto:ramin.akbari03@gmail.com">ramin.akbari03@gmail.com</a>
+      <a class="btn" href="https://github.com/Ramin034" target="_blank">GitHub</a>
+      <a class="btn" href="Ramin_Akbari_Resume.pdf" target="_blank">Resume</a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Ramin Akbari</footer>
+
+</body>
+</html>
